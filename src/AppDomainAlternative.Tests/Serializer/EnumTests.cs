@@ -7,54 +7,53 @@ using System.Threading.Tasks;
 using AppDomainAlternative.Serializer.Default;
 using NUnit.Framework;
 
-namespace AppDomainAlternative.Serializer
+namespace AppDomainAlternative.Serializer;
+
+[TestFixture]
+public class EnumTests
 {
-    [TestFixture]
-    public class EnumTests
+    [Flags]
+    public enum SampleEnum
     {
-        [Flags]
-        public enum SampleEnum
+        One = 1,
+        Two = 2,
+        Three = One | Two,
+        Four = 4,
+        Five = One | Four,
+        Six = Two | Four,
+        Seven = One | Two | Four,
+        Eight = 8
+    }
+
+    private async Task test(DefaultSerializer serializer, MockResolveProxyIds resolver, SampleEnum value)
+    {
+        var stream = new MemoryStream();
+
+        using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
         {
-            One = 1,
-            Two = 2,
-            Three = One | Two,
-            Four = 4,
-            Five = One | Four,
-            Six = Two | Four,
-            Seven = One | Two | Four,
-            Eight = 8
+            await serializer.Serialize(writer, typeof(SampleEnum), value, resolver).ConfigureAwait(false);
         }
 
-        private async Task test(DefaultSerializer serializer, MockResolveProxyIds resolver, SampleEnum value)
+        Console.WriteLine($"Size of {value}: {stream.Length}");
+
+        stream.Position = 0;
+
+        using (var reader = new BinaryReader(stream, Encoding.UTF8, true))
         {
-            var stream = new MemoryStream();
-
-            using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
-            {
-                await serializer.Serialize(writer, typeof(SampleEnum), value, resolver).ConfigureAwait(false);
-            }
-
-            Console.WriteLine($"Size of {value}: {stream.Length}");
-
-            stream.Position = 0;
-
-            using (var reader = new BinaryReader(stream, Encoding.UTF8, true))
-            {
-                var deserializedValue = await serializer.Deserialize(reader, typeof(SampleEnum), resolver, CancellationToken.None).ConfigureAwait(false);
-                Assert.AreEqual(deserializedValue, value);
-            }
+            var deserializedValue = await serializer.Deserialize(reader, typeof(SampleEnum), resolver, CancellationToken.None).ConfigureAwait(false);
+            Assert.AreEqual(deserializedValue, value);
         }
+    }
 
-        [Test]
-        public async Task Test()
+    [Test]
+    public async Task Test()
+    {
+        var resolver = new MockResolveProxyIds();
+        var serializer = new DefaultSerializer();
+
+        foreach (var value in Enum.GetValues(typeof(SampleEnum)).Cast<SampleEnum>())
         {
-            var resolver = new MockResolveProxyIds();
-            var serializer = new DefaultSerializer();
-
-            foreach (var value in Enum.GetValues(typeof(SampleEnum)).Cast<SampleEnum>())
-            {
-                await test(serializer, resolver, value).ConfigureAwait(false);
-            }
+            await test(serializer, resolver, value).ConfigureAwait(false);
         }
     }
 }

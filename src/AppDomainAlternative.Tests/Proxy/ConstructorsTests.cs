@@ -3,76 +3,75 @@ using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
 
-namespace AppDomainAlternative.Proxy
+namespace AppDomainAlternative.Proxy;
+
+[TestFixture]
+public class ConstructorsTests
 {
-    [TestFixture]
-    public class ConstructorsTests
+    public class SampleClass
     {
-        public class SampleClass
+        public SampleClass(int a, DateTime b, string c)
         {
-            public SampleClass(int a, DateTime b, string c)
-            {
-                CtorArgs = 3;
+            CtorArgs = 3;
 
-                A = a;
-                B = b;
-                C = c;
-            }
-            public SampleClass(int a, DateTime b)
-            {
-                CtorArgs = 2;
+            A = a;
+            B = b;
+            C = c;
+        }
+        public SampleClass(int a, DateTime b)
+        {
+            CtorArgs = 2;
 
-                A = a;
-                B = b;
-                C = null;
-            }
-            public SampleClass(int a)
-            {
-                CtorArgs = 1;
+            A = a;
+            B = b;
+            C = null;
+        }
+        public SampleClass(int a)
+        {
+            CtorArgs = 1;
 
-                A = a;
-                B = default(DateTime);
-                C = null;
-            }
-
-            public readonly int CtorArgs;
-
-            public readonly int A;
-            public readonly DateTime B;
-            public readonly string C;
-
-            public virtual void SyncMethod(int a, DateTime b, string c) => throw new NotSupportedException();
+            A = a;
+            B = default(DateTime);
+            C = null;
         }
 
-        private void test(DefaultProxyFactory factory, MockInterceptor interceptor, ConstructorInfo ctor, params object[] arguments)
-        {
-            var proxyInstance = (SampleClass)factory.GenerateProxy(interceptor, ctor, arguments);
+        public readonly int CtorArgs;
 
-            Assert.AreEqual(interceptor.Logs.Count, 0);
+        public readonly int A;
+        public readonly DateTime B;
+        public readonly string C;
 
-            Assert.AreEqual(arguments.Length, proxyInstance.CtorArgs);
+        public virtual void SyncMethod(int a, DateTime b, string c) => throw new NotSupportedException();
+    }
 
-            Assert.AreEqual(arguments[0], proxyInstance.A);
-            Assert.AreEqual(arguments.Length > 1 ? arguments[1] : default(DateTime), proxyInstance.B);
-            Assert.AreEqual(arguments.Length > 2 ? arguments[2] : default(string), proxyInstance.C);
-        }
+    private void test(DefaultProxyFactory factory, MockInterceptor interceptor, ConstructorInfo ctor, params object[] arguments)
+    {
+        var proxyInstance = (SampleClass)factory.GenerateProxy(interceptor, ctor, arguments);
 
-        [Test]
-        public void Test()
-        {
-            var factory = new DefaultProxyFactory();
-            var interceptor = new MockInterceptor();
+        Assert.AreEqual(interceptor.Logs.Count, 0);
 
-            var constructors = typeof(SampleClass).GetConstructors();
+        Assert.AreEqual(arguments.Length, proxyInstance.CtorArgs);
 
-            test(factory, interceptor, constructors.First(ctor => ctor.GetParameters().Length == 3),
-                int.MinValue, DateTime.UtcNow, "Hello World");
+        Assert.AreEqual(arguments[0], proxyInstance.A);
+        Assert.AreEqual(arguments.Length > 1 ? arguments[1] : default(DateTime), proxyInstance.B);
+        Assert.AreEqual(arguments.Length > 2 ? arguments[2] : default(string), proxyInstance.C);
+    }
 
-            test(factory, interceptor, constructors.First(ctor => ctor.GetParameters().Length == 2),
-                int.MinValue, DateTime.UtcNow);
+    [Test]
+    public void Test()
+    {
+        var factory = new DefaultProxyFactory();
+        var interceptor = new MockInterceptor();
 
-            test(factory, interceptor, constructors.First(ctor => ctor.GetParameters().Length == 1),
-                int.MinValue);
-        }
+        var constructors = typeof(SampleClass).GetConstructors();
+
+        test(factory, interceptor, constructors.First(ctor => ctor.GetParameters().Length == 3),
+            int.MinValue, DateTime.UtcNow, "Hello World");
+
+        test(factory, interceptor, constructors.First(ctor => ctor.GetParameters().Length == 2),
+            int.MinValue, DateTime.UtcNow);
+
+        test(factory, interceptor, constructors.First(ctor => ctor.GetParameters().Length == 1),
+            int.MinValue);
     }
 }

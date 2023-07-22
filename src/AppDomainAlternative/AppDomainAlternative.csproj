@@ -1,52 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.props" Condition="Exists('$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.props')" />
+	<PropertyGroup>
+		<PackageOutputPath>$(SolutionDir)Packages/</PackageOutputPath>
+		<Version>$(VersionPrefix).$(VersionSuffix)</Version>
+		<LangVersion>latest</LangVersion>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>Net4x.$(AssemblyName)</PackageId>
+		<SignAssembly>True</SignAssembly>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-  </PropertyGroup>
+	<ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<Content Include="$(SolutionDir)\VsDebugger\bin\Debug\*.*">
+			<CopyToOutput>true</CopyToOutput>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Content Include="$(SolutionDir)\VsDebugger\bin\Debug\*.*">
-      <CopyToOutput>true</CopyToOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>$(SolutionDir)\AppDomainAlternative\bin\Release\AppDomainAlternative.xml</DocumentationFile>
+		<IsPackable>true</IsPackable>
+		<PackageId>AppDomainAlternative</PackageId>
+		<PackageVersion>$(Version)</PackageVersion>
+		<Title>An AppDomain alternative for .Net Core</Title>
+		<Authors>Cy A Scott</Authors>
+		<PackageProjectUrl>https://github.com/CyAScott/AppDomainAlternative</PackageProjectUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageTags>Core AppDomain</PackageTags>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>$(SolutionDir)\AppDomainAlternative\bin\Release\AppDomainAlternative.xml</DocumentationFile>
-    <IsPackable>true</IsPackable>
-    <PackageId>AppDomainAlternative</PackageId>
-    <PackageVersion>$(Version)</PackageVersion>
-    <Title>An AppDomain alternative for .Net Core</Title>
-    <Authors>Cy A Scott</Authors>
-    <PackageProjectUrl>https://github.com/CyAScott/AppDomainAlternative</PackageProjectUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>Core AppDomain</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<Content Include="$(SolutionDir)\VsDebugger\bin\Release\*.*">
+			<Pack>true</Pack>
+			<PackagePath>lib\netstandard2.0</PackagePath>
+			<CopyToOutput>true</CopyToOutput>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Content Include="$(SolutionDir)\VsDebugger\bin\Release\*.*">
-      <Pack>true</Pack>
-      <PackagePath>lib\netstandard2.0</PackagePath>
-      <CopyToOutput>true</CopyToOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Remove="$(SolutionDir)\VsDebugger\bin\Release\EnvDTE.dll" />
+		<Content Remove="$(SolutionDir)\VsDebugger\bin\Release\EnvDTE80.dll" />
+		<Content Remove="$(SolutionDir)\VsDebugger\bin\Release\stdole.dll" />
+		<Content Remove="$(SolutionDir)\VsDebugger\bin\Release\VsDebugger.exe" />
+		<Content Remove="$(SolutionDir)\VsDebugger\bin\Release\VsDebugger.exe.config" />
+		<Content Remove="$(SolutionDir)\VsDebugger\bin\Release\VsDebugger.pdb" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="$(SolutionDir)\VsDebugger\bin\Release\EnvDTE.dll" />
-    <Content Remove="$(SolutionDir)\VsDebugger\bin\Release\EnvDTE80.dll" />
-    <Content Remove="$(SolutionDir)\VsDebugger\bin\Release\stdole.dll" />
-    <Content Remove="$(SolutionDir)\VsDebugger\bin\Release\VsDebugger.exe" />
-    <Content Remove="$(SolutionDir)\VsDebugger\bin\Release\VsDebugger.exe.config" />
-    <Content Remove="$(SolutionDir)\VsDebugger\bin\Release\VsDebugger.pdb" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="NuGetUtility" Version="$(NuGetUtilityVersion)" PrivateAssets="All" />
+		<PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
+	</ItemGroup>
+	<Import Project="$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.targets" Condition="Exists('$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.targets')" />
 </Project>

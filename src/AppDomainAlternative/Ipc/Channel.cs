@@ -12,136 +12,135 @@ using AppDomainAlternative.Serializer;
 
 #pragma warning disable AsyncFixer03 // Avoid fire & forget async void methods
 
-namespace AppDomainAlternative.Ipc
+namespace AppDomainAlternative.Ipc;
+
+/// <summary>
+/// An IPC channel for sharing an instance across domains.
+/// </summary>
+public interface IChannel : IDisposable
 {
     /// <summary>
-    /// An IPC channel for sharing an instance across domains.
+    /// If the instance is hosted from this domain.
     /// </summary>
-    public interface IChannel : IDisposable
+    bool IsHost { get; }
+
+    /// <summary>
+    /// The id for the channel.
+    /// </summary>
+    long Id { get; }
+
+    /// <summary>
+    /// The shared instance between domains.
+    /// </summary>
+    object Instance { get; }
+}
+
+internal interface IInternalChannel : IChannel, IInterceptor
+{
+    BinaryReader Reader { get; }
+    IConnection Connection { get; }
+    ReadWriteBuffer Buffer { get; }
+    Task LocalStart(IGenerateProxies proxyGenerator, ConstructorInfo ctor, bool hostInstance, params object[] arguments);
+    Task LocalStart<T>(T instance)
+        where T : class, new();
+    Task RemoteStart(IGenerateProxies proxyGenerator);
+    bool IsDisposed { get; }
+}
+
+internal sealed class Channel : IInternalChannel
+{
+    private int disposed, requestCounter;
+    private readonly CancellationTokenSource disposeToken = new CancellationTokenSource();
+    private readonly ConcurrentDictionary<int, TaskCompletionSource<object>> remoteRequests = new ConcurrentDictionary<int, TaskCompletionSource<object>>();
+    private void throwIfDisposed()
     {
-        /// <summary>
-        /// If the instance is hosted from this domain.
-        /// </summary>
-        bool IsHost { get; }
-
-        /// <summary>
-        /// The id for the channel.
-        /// </summary>
-        long Id { get; }
-
-        /// <summary>
-        /// The shared instance between domains.
-        /// </summary>
-        object Instance { get; }
+        if (disposed > 0)
+        {
+            throw new ObjectDisposedException(nameof(Channel));
+        }
     }
 
-    internal interface IInternalChannel : IChannel, IInterceptor
+    public Channel(long id, IConnection connection, IAmASerializer serializer)
     {
-        BinaryReader Reader { get; }
-        IConnection Connection { get; }
-        ReadWriteBuffer Buffer { get; }
-        Task LocalStart(IGenerateProxies proxyGenerator, ConstructorInfo ctor, bool hostInstance, params object[] arguments);
-        Task LocalStart<T>(T instance)
-            where T : class, new();
-        Task RemoteStart(IGenerateProxies proxyGenerator);
-        bool IsDisposed { get; }
+        Buffer = new ReadWriteBuffer(id);
+
+        Connection = connection;
+        Reader = new BinaryReader(Buffer, Encoding.UTF8);
+        Id = id;
+        IdBytes = BitConverter.GetBytes(id);
+        Serializer = serializer;
     }
 
-    internal sealed class Channel : IInternalChannel
+    public BinaryReader Reader { get; }
+    public IAmASerializer Serializer { get; }
+    public IConnection Connection { get; }
+    public ReadWriteBuffer Buffer { get; }
+    public Task<T> RemoteInvoke<T>(bool fireAndForget, string methodName, params Tuple<Type, object>[] args)
     {
-        private int disposed, requestCounter;
-        private readonly CancellationTokenSource disposeToken = new CancellationTokenSource();
-        private readonly ConcurrentDictionary<int, TaskCompletionSource<object>> remoteRequests = new ConcurrentDictionary<int, TaskCompletionSource<object>>();
-        private void throwIfDisposed()
+        throwIfDisposed();
+
+        return this.RemoteInvoke<T>(remoteRequests, () => Interlocked.Increment(ref requestCounter), fireAndForget, methodName, args);
+    }
+    public async Task LocalStart(IGenerateProxies proxyGenerator, ConstructorInfo ctor, bool hostInstance, params object[] arguments)
+    {
+        Instance = await this.LocalStart(disposeToken, proxyGenerator, ctor, hostInstance, arguments).ConfigureAwait(false);
+
+        IsHost = hostInstance;
+
+        this.StartListening(disposeToken, remoteRequests);
+    }
+    public async Task LocalStart<T>(T instance)
+        where T : class, new()
+    {
+        await this.LocalStart(disposeToken, Instance = instance).ConfigureAwait(false);
+
+        IsHost = true;
+
+        this.StartListening(disposeToken, remoteRequests);
+    }
+    public async Task RemoteStart(IGenerateProxies proxyGenerator)
+    {
+        var (isHost, instance) = await this.RemoteStart(disposeToken, proxyGenerator).ConfigureAwait(false);
+
+        IsHost = isHost;
+        Instance = instance;
+
+        this.StartListening(disposeToken, remoteRequests);
+    }
+    public bool IsDisposed => disposed > 0;
+    public bool IsHost { get; private set; }
+    public byte[] IdBytes { get; }
+    public long Id { get; }
+    public object Instance { get; private set; }
+    public void Dispose()
+    {
+        if (Interlocked.CompareExchange(ref disposed, 1, 0) != 0)
         {
-            if (disposed > 0)
+            return;
+        }
+
+        using (disposeToken)
+        {
+            try
             {
-                throw new ObjectDisposedException(nameof(Channel));
+                disposeToken.Cancel();
+            }
+            catch
+            {
+                // ignored
             }
         }
 
-        public Channel(long id, IConnection connection, IAmASerializer serializer)
-        {
-            Buffer = new ReadWriteBuffer(id);
+        Connection.Terminate(this);
+        Buffer.Dispose();
 
-            Connection = connection;
-            Reader = new BinaryReader(Buffer, Encoding.UTF8);
-            Id = id;
-            IdBytes = BitConverter.GetBytes(id);
-            Serializer = serializer;
+        var requests = remoteRequests.Values.ToArray();
+        remoteRequests.Clear();
+        foreach (var request in requests)
+        {
+            request.TrySetCanceled();
         }
 
-        public BinaryReader Reader { get; }
-        public IAmASerializer Serializer { get; }
-        public IConnection Connection { get; }
-        public ReadWriteBuffer Buffer { get; }
-        public Task<T> RemoteInvoke<T>(bool fireAndForget, string methodName, params Tuple<Type, object>[] args)
-        {
-            throwIfDisposed();
-
-            return this.RemoteInvoke<T>(remoteRequests, () => Interlocked.Increment(ref requestCounter), fireAndForget, methodName, args);
-        }
-        public async Task LocalStart(IGenerateProxies proxyGenerator, ConstructorInfo ctor, bool hostInstance, params object[] arguments)
-        {
-            Instance = await this.LocalStart(disposeToken, proxyGenerator, ctor, hostInstance, arguments).ConfigureAwait(false);
-
-            IsHost = hostInstance;
-
-            this.StartListening(disposeToken, remoteRequests);
-        }
-        public async Task LocalStart<T>(T instance)
-            where T : class, new()
-        {
-            await this.LocalStart(disposeToken, Instance = instance).ConfigureAwait(false);
-
-            IsHost = true;
-
-            this.StartListening(disposeToken, remoteRequests);
-        }
-        public async Task RemoteStart(IGenerateProxies proxyGenerator)
-        {
-            var (isHost, instance) = await this.RemoteStart(disposeToken, proxyGenerator).ConfigureAwait(false);
-
-            IsHost = isHost;
-            Instance = instance;
-
-            this.StartListening(disposeToken, remoteRequests);
-        }
-        public bool IsDisposed => disposed > 0;
-        public bool IsHost { get; private set; }
-        public byte[] IdBytes { get; }
-        public long Id { get; }
-        public object Instance { get; private set; }
-        public void Dispose()
-        {
-            if (Interlocked.CompareExchange(ref disposed, 1, 0) != 0)
-            {
-                return;
-            }
-
-            using (disposeToken)
-            {
-                try
-                {
-                    disposeToken.Cancel();
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-
-            Connection.Terminate(this);
-            Buffer.Dispose();
-
-            var requests = remoteRequests.Values.ToArray();
-            remoteRequests.Clear();
-            foreach (var request in requests)
-            {
-                request.TrySetCanceled();
-            }
-
-            Reader.Dispose();
-        }
+        Reader.Dispose();
     }
 }

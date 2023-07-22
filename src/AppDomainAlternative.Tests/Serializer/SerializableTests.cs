@@ -11,146 +11,145 @@ using NUnit.Framework;
 
 #pragma warning disable 659
 
-namespace AppDomainAlternative.Serializer
+namespace AppDomainAlternative.Serializer;
+
+[TestFixture]
+public class SerializableTests
 {
-    [TestFixture]
-    public class SerializableTests
+    [Serializable]
+    public class SampleClass : ISerializable
     {
-        [Serializable]
-        public class SampleClass : ISerializable
+        public SampleClass() => CreatedByDefaultCtor = true;
+        public SampleClass(SerializationInfo info, StreamingContext context)
         {
-            public SampleClass() => CreatedByDefaultCtor = true;
-            public SampleClass(SerializationInfo info, StreamingContext context)
-            {
-                CreatedByDefaultCtor = false;
-                Number = info.GetInt32(nameof(Number));
-                Parent = (SerializableTests)info.GetValue(nameof(Parent), typeof(SerializableTests));
-                Str = info.GetString(nameof(Str));
-            }
-
-            public readonly bool CreatedByDefaultCtor;
-
-            public SerializableTests Parent { get; set; }
-            public int Number { get; set; }
-            public string Str { get; set; }
-
-            public override bool Equals(object obj) =>
-                obj is SampleClass value &&
-                Number == value.Number &&
-                Str == value.Str &&
-                ReferenceEquals(Parent, value.Parent);
-
-            public void GetObjectData(SerializationInfo info, StreamingContext context)
-            {
-                info.AddValue(nameof(Number), Number);
-                info.AddValue(nameof(Parent), Parent);
-                info.AddValue(nameof(Str), Str);
-            }
+            CreatedByDefaultCtor = false;
+            Number = info.GetInt32(nameof(Number));
+            Parent = (SerializableTests)info.GetValue(nameof(Parent), typeof(SerializableTests));
+            Str = info.GetString(nameof(Str));
         }
 
-        private async Task test(DefaultSerializer serializer, MockResolveProxyIds resolver, SampleClass value)
+        public readonly bool CreatedByDefaultCtor;
+
+        public SerializableTests Parent { get; set; }
+        public int Number { get; set; }
+        public string Str { get; set; }
+
+        public override bool Equals(object obj) =>
+            obj is SampleClass value &&
+            Number == value.Number &&
+            Str == value.Str &&
+            ReferenceEquals(Parent, value.Parent);
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            var stream = new MemoryStream();
+            info.AddValue(nameof(Number), Number);
+            info.AddValue(nameof(Parent), Parent);
+            info.AddValue(nameof(Str), Str);
+        }
+    }
 
-            using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
-            {
-                await serializer.Serialize(writer, typeof(SampleClass), value, resolver).ConfigureAwait(false);
-            }
+    private async Task test(DefaultSerializer serializer, MockResolveProxyIds resolver, SampleClass value)
+    {
+        var stream = new MemoryStream();
 
-            Console.WriteLine($"Size of {value}: {stream.Length}");
-
-            stream.Position = 0;
-
-            using (var reader = new BinaryReader(stream, Encoding.UTF8, true))
-            {
-                var deserializedValue = (SampleClass)await serializer.Deserialize(reader, typeof(SampleClass), resolver, CancellationToken.None).ConfigureAwait(false);
-                Assert.AreEqual(deserializedValue, value);
-                Assert.IsFalse(deserializedValue.CreatedByDefaultCtor);
-            }
+        using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
+        {
+            await serializer.Serialize(writer, typeof(SampleClass), value, resolver).ConfigureAwait(false);
         }
 
-        [Test]
-        public async Task CustomSerializerTest()
+        Console.WriteLine($"Size of {value}: {stream.Length}");
+
+        stream.Position = 0;
+
+        using (var reader = new BinaryReader(stream, Encoding.UTF8, true))
         {
-            var resolver = new MockResolveProxyIds();
-            var serializer = new DefaultSerializer();
+            var deserializedValue = (SampleClass)await serializer.Deserialize(reader, typeof(SampleClass), resolver, CancellationToken.None).ConfigureAwait(false);
+            Assert.AreEqual(deserializedValue, value);
+            Assert.IsFalse(deserializedValue.CreatedByDefaultCtor);
+        }
+    }
 
-            resolver.Instances[3] = this;
+    [Test]
+    public async Task CustomSerializerTest()
+    {
+        var resolver = new MockResolveProxyIds();
+        var serializer = new DefaultSerializer();
 
-            await test(serializer, resolver, new SampleClass
-            {
-                Number = 0,
-                Parent = this,
-                Str = null
-            }).ConfigureAwait(false);
-            await test(serializer, resolver, new SampleClass
-            {
-                Number = int.MinValue,
-                Parent = this,
-                Str = ""
-            }).ConfigureAwait(false);
-            await test(serializer, resolver, new SampleClass
-            {
-                Number = int.MaxValue,
-                Parent = this,
-                Str = "Hello World"
-            }).ConfigureAwait(false);
+        resolver.Instances[3] = this;
+
+        await test(serializer, resolver, new SampleClass
+        {
+            Number = 0,
+            Parent = this,
+            Str = null
+        }).ConfigureAwait(false);
+        await test(serializer, resolver, new SampleClass
+        {
+            Number = int.MinValue,
+            Parent = this,
+            Str = ""
+        }).ConfigureAwait(false);
+        await test(serializer, resolver, new SampleClass
+        {
+            Number = int.MaxValue,
+            Parent = this,
+            Str = "Hello World"
+        }).ConfigureAwait(false);
+    }
+
+    [Test]
+    public async Task CustomSerializerWNonPublicCtorTest()
+    {
+        var resolver = new MockResolveProxyIds();
+        var serializer = new DefaultSerializer();
+        var stream = new MemoryStream();
+        var value = new ArgumentNullException(Guid.NewGuid().ToString());
+
+        using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
+        {
+            await serializer.Serialize(writer, typeof(ArgumentNullException), value, resolver).ConfigureAwait(false);
         }
 
-        [Test]
-        public async Task CustomSerializerWNonPublicCtorTest()
+        Console.WriteLine($"Size of {value}: {stream.Length}");
+
+        stream.Position = 0;
+
+        using (var reader = new BinaryReader(stream, Encoding.UTF8, true))
         {
-            var resolver = new MockResolveProxyIds();
-            var serializer = new DefaultSerializer();
-            var stream = new MemoryStream();
-            var value = new ArgumentNullException(Guid.NewGuid().ToString());
+            var deserializedValue = (ArgumentNullException)await serializer.Deserialize(reader, typeof(ArgumentNullException), resolver, CancellationToken.None).ConfigureAwait(false);
+            Assert.AreEqual(deserializedValue.Message, value.Message);
+        }
+    }
 
-            using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
-            {
-                await serializer.Serialize(writer, typeof(ArgumentNullException), value, resolver).ConfigureAwait(false);
-            }
+    [Test]
+    public async Task ListTest()
+    {
+        var resolver = new MockResolveProxyIds();
+        var serializer = new DefaultSerializer();
 
-            Console.WriteLine($"Size of {value}: {stream.Length}");
+        var stream = new MemoryStream();
 
-            stream.Position = 0;
+        var value = new List<int>
+        {
+            int.MinValue,
+            0,
+            int.MaxValue
+        };
 
-            using (var reader = new BinaryReader(stream, Encoding.UTF8, true))
-            {
-                var deserializedValue = (ArgumentNullException)await serializer.Deserialize(reader, typeof(ArgumentNullException), resolver, CancellationToken.None).ConfigureAwait(false);
-                Assert.AreEqual(deserializedValue.Message, value.Message);
-            }
+        using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
+        {
+            await serializer.Serialize(writer, typeof(List<int>), value, resolver).ConfigureAwait(false);
         }
 
-        [Test]
-        public async Task ListTest()
+        Console.WriteLine($"Size of {value}: {stream.Length}");
+
+        stream.Position = 0;
+
+        using (var reader = new BinaryReader(stream, Encoding.UTF8, true))
         {
-            var resolver = new MockResolveProxyIds();
-            var serializer = new DefaultSerializer();
-
-            var stream = new MemoryStream();
-
-            var value = new List<int>
-            {
-                int.MinValue,
-                0,
-                int.MaxValue
-            };
-
-            using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
-            {
-                await serializer.Serialize(writer, typeof(List<int>), value, resolver).ConfigureAwait(false);
-            }
-
-            Console.WriteLine($"Size of {value}: {stream.Length}");
-
-            stream.Position = 0;
-
-            using (var reader = new BinaryReader(stream, Encoding.UTF8, true))
-            {
-                var deserializedValue = (List<int>)await serializer.Deserialize(reader, typeof(List<int>), resolver, CancellationToken.None).ConfigureAwait(false);
-                Assert.AreEqual(deserializedValue.Count, value.Count);
-                Assert.IsTrue(value.Zip(deserializedValue, (a, b) => a == b).All(result => result));
-            }
+            var deserializedValue = (List<int>)await serializer.Deserialize(reader, typeof(List<int>), resolver, CancellationToken.None).ConfigureAwait(false);
+            Assert.AreEqual(deserializedValue.Count, value.Count);
+            Assert.IsTrue(value.Zip(deserializedValue, (a, b) => a == b).All(result => result));
         }
     }
 }

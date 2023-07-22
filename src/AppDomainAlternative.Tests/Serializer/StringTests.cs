@@ -6,54 +6,53 @@ using System.Threading.Tasks;
 using AppDomainAlternative.Serializer.Default;
 using NUnit.Framework;
 
-namespace AppDomainAlternative.Serializer
+namespace AppDomainAlternative.Serializer;
+
+[TestFixture]
+public class StringTests
 {
-    [TestFixture]
-    public class StringTests
+    [Test]
+    public async Task Test()
     {
-        [Test]
-        public async Task Test()
+        var resolver = new MockResolveProxyIds();
+        var serializer = new DefaultSerializer();
+
+        var stream = new MemoryStream();
+
+        var str = new string(new[]
         {
-            var resolver = new MockResolveProxyIds();
-            var serializer = new DefaultSerializer();
+            char.MinValue,
 
-            var stream = new MemoryStream();
+            //standard ASCII
+            'A',
+            'Z',
+            'a',
+            'z',
 
-            var str = new string(new[]
-            {
-                char.MinValue,
+            //extended ASCII
+            'À',
+            'Ï',
 
-                //standard ASCII
-                'A',
-                'Z',
-                'a',
-                'z',
+            //unicode
+            'Ā',
+            'ď',
 
-                //extended ASCII
-                'À',
-                'Ï',
+            char.MaxValue
+        });
 
-                //unicode
-                'Ā',
-                'ď',
+        using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
+        {
+            await serializer.Serialize(writer, typeof(string), str, resolver).ConfigureAwait(false);
+        }
 
-                char.MaxValue
-            });
+        Console.WriteLine($"Size of \"{str}\": {stream.Length}");
 
-            using (var writer = new BinaryWriter(stream, Encoding.UTF8, true))
-            {
-                await serializer.Serialize(writer, typeof(string), str, resolver).ConfigureAwait(false);
-            }
+        stream.Position = 0;
 
-            Console.WriteLine($"Size of \"{str}\": {stream.Length}");
-
-            stream.Position = 0;
-
-            using (var reader = new BinaryReader(stream, Encoding.UTF8, true))
-            {
-                var deserializedValue = await serializer.Deserialize(reader, typeof(string), resolver, CancellationToken.None).ConfigureAwait(false);
-                Assert.AreEqual(deserializedValue, str);
-            }
+        using (var reader = new BinaryReader(stream, Encoding.UTF8, true))
+        {
+            var deserializedValue = await serializer.Deserialize(reader, typeof(string), resolver, CancellationToken.None).ConfigureAwait(false);
+            Assert.AreEqual(deserializedValue, str);
         }
     }
 }
