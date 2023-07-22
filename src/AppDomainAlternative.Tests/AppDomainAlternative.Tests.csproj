@@ -7,6 +7,8 @@
 
 		<RootNamespace>AppDomainAlternative</RootNamespace>
 		<LangVersion>latest</LangVersion>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\..\AppDomainAlternative.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -14,39 +14,6 @@ using AppDomainAlternative.Serializer;
 
 namespace AppDomainAlternative.Ipc;
 
-/// <summary>
-/// An IPC channel for sharing an instance across domains.
-/// </summary>
-public interface IChannel : IDisposable
-{
-    /// <summary>
-    /// If the instance is hosted from this domain.
-    /// </summary>
-    bool IsHost { get; }
-
-    /// <summary>
-    /// The id for the channel.
-    /// </summary>
-    long Id { get; }
-
-    /// <summary>
-    /// The shared instance between domains.
-    /// </summary>
-    object Instance { get; }
-}
-
-internal interface IInternalChannel : IChannel, IInterceptor
-{
-    BinaryReader Reader { get; }
-    IConnection Connection { get; }
-    ReadWriteBuffer Buffer { get; }
-    Task LocalStart(IGenerateProxies proxyGenerator, ConstructorInfo ctor, bool hostInstance, params object[] arguments);
-    Task LocalStart<T>(T instance)
-        where T : class, new();
-    Task RemoteStart(IGenerateProxies proxyGenerator);
-    bool IsDisposed { get; }
-}
-
 internal sealed class Channel : IInternalChannel
 {
     private int disposed, requestCounter;

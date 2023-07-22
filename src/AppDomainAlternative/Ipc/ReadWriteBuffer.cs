@@ -10,28 +10,6 @@ namespace AppDomainAlternative.Ipc;
 /// </summary>
 internal class ReadWriteBuffer : Stream
 {
-    internal class ReadRequest : TaskCompletionSource<int>, IAsyncResult
-    {
-        WaitHandle IAsyncResult.AsyncWaitHandle => ((IAsyncResult)Task).AsyncWaitHandle;
-        bool IAsyncResult.CompletedSynchronously => ((IAsyncResult)Task).CompletedSynchronously;
-        bool IAsyncResult.IsCompleted => Task.IsCompleted;
-        object IAsyncResult.AsyncState => Task.AsyncState;
-
-        public ReadRequest(long id, ArraySegment<byte> buffer, AsyncCallback callback, object state)
-            : base(state)
-        {
-            if (callback != null)
-            {
-                Task.ContinueWith(_ => callback(this));
-            }
-            Buffer = buffer;
-            Id = id;
-        }
-        public ArraySegment<byte> Buffer { get; }
-        public long Id { get; }
-        public int ReadBytes { get; set; }
-    }
-
     private ReadRequest readRequest;
     private byte[] buffer = new byte[pageSize];
     private const int pageSize = 4096;
