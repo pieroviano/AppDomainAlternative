@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using AppDomainAlternative;
 
 namespace Common;
 
-public class ChatRoom
+public class DomainWorker
 {
-    public ChatRoom(string name)
+    public DomainWorker(string name)
     {
         Name = name;
 
         Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine($"Chat room \"{name}\" started for pid {Domains.Current.Process.Id}.");
+        Console.WriteLine($"AlternativeDomain \"{name}\" started for pid {Domains.Current.Process.Id}.");
     }
 
     public string Name { get; }
@@ -22,5 +23,10 @@ public class ChatRoom
         Console.WriteLine($"{(isHost ? "Host" : "Client")}: {message}");
         Console.ForegroundColor = ConsoleColor.Gray;
         return Task.CompletedTask;
+    }
+
+    public virtual void Break()
+    {
+        Debugger.Break();
     }
 }
