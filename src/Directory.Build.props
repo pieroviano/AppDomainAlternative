@@ -2,6 +2,7 @@
 	<Import Project="Directory.NuGet.props" />
 	<PropertyGroup>
 		<VersionPrefix>$(AppDomainAlternativeVersion)</VersionPrefix>
+		<SolutionDir Condition="'$(SolutionDir)'==''">$(MSBuildThisFileDirectory)</SolutionDir>
 		<VersionSuffix Condition="'$(Configuration)' != 'Release'">1-at20230722033345</VersionSuffix>
 		<VersionSuffix Condition="'$(Configuration)' == 'Release'">1</VersionSuffix>
 	</PropertyGroup>
