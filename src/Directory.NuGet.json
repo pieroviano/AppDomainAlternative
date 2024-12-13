@@ -4612,6 +4612,11 @@
             "Version": "$(NuGetUtilityVersion)"
           }
         ]
+      },
+      {
+        "Name": "EasyTabs\\EasyTabs.csproj",
+        "Project": "Net4x.Net4x.EasyTabs",
+        "PackageReferences": null
       }
     ]
   },
@@ -9266,6 +9271,11 @@
             "Version": "$(NuGetUtilityVersion)"
           }
         ]
+      },
+      {
+        "Name": "Net4x.iTextSharp\\Net4x.iTextSharp.csproj",
+        "Project": "Net4x.iTextSharp.Common",
+        "PackageReferences": null
       }
     ]
   },
@@ -15047,6 +15057,11 @@
             "Version": "4.5.1"
           }
         ]
+      },
+      {
+        "Name": "..\\..\\titanium-web-proxy\\src\\Titanium.Web.Proxy\\Titanium.Web.Proxy.csproj",
+        "Project": "Net4x.Titanium.Web.Proxy",
+        "PackageReferences": null
       }
     ]
   },
@@ -22173,6 +22188,16 @@
             "Version": "$(NuGetUtilityVersion)"
           }
         ]
+      },
+      {
+        "Name": "..\\DocumentoUnico\\DocumentoUnicoLibrary.BaseTypes\\DocumentoUnicoLibrary.BaseTypes.csproj",
+        "Project": "Cartabianca.DocumentoUnico.BaseTypes",
+        "PackageReferences": null
+      },
+      {
+        "Name": "..\\DocumentoUnico\\TableMergeLibrary\\TableMergeLibrary.csproj",
+        "Project": "Cartabianca.TableMergeLibrary",
+        "PackageReferences": null
       }
     ]
   },
@@ -22211,6 +22236,11 @@
             "Version": "$(NuGetUtilityVersion)"
           }
         ]
+      },
+      {
+        "Name": "..\\..\\CommonLibrary\\NumberConverterLib\\NumberConverterLib\\NumberConverterLib.csproj",
+        "Project": "Net4x.NumberConverterLib",
+        "PackageReferences": null
       }
     ]
   },
@@ -24346,6 +24376,11 @@
         "Name": "MdiInActiveX\\MdiInActiveX.csproj",
         "Project": "Net4x.$(MSBuildProjectName)",
         "PackageReferences": null
+      },
+      {
+        "Name": "MdiInActiveX\\MdiInActiveX.csproj",
+        "Project": "Net4x.MdiInActiveX",
+        "PackageReferences": null
       }
     ]
   },
@@ -24358,6 +24393,11 @@
       {
         "Name": "Net4x.$(MSBuildProjectName)",
         "Project": "DataHandlerLibrary\\DataHandlerLibrary.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "DataHandlerLibrary\\DataHandlerLibrary.csproj",
+        "Project": "Net4x.DataHandlerLibrary",
         "PackageReferences": null
       }
     ]
@@ -24646,6 +24686,11 @@
         "Name": "JavascriptLibrary\\JavascriptLibrary.csproj",
         "Project": "Net4x.$(MSBuildProjectName)",
         "PackageReferences": null
+      },
+      {
+        "Name": "JavascriptLibrary\\JavascriptLibrary.csproj",
+        "Project": "Net4x.JavascriptLibrary",
+        "PackageReferences": null
       }
     ]
   },
@@ -24801,6 +24846,11 @@
         "Name": "WebLibrary\\Starb.WebLibrary.csproj",
         "Project": "$(MSBuildProjectName)",
         "PackageReferences": null
+      },
+      {
+        "Name": "WebLibrary\\Starb.WebLibrary.csproj",
+        "Project": "Starb.WebLibrary",
+        "PackageReferences": null
       }
     ]
   },
@@ -24917,6 +24967,61 @@
       {
         "Name": "VbExplorer.CustomAction",
         "Project": "VbExplorer\\VbExplorerCustomAction\\VbExplorerCustomAction.vbproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "PaccoFastbook\\PaccoFastbook.vbproj",
+        "Project": "PaccoFastbook",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ModificaModificaEditoreTitolo\\CambiaModificaEditoreTitolo.vbproj",
+        "Project": "CambiaModificaEditoreTitolo",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Circolari\\Circolari.vbproj",
+        "Project": "Circolari",
+        "PackageReferences": null
+      },
+      {
+        "Name": "PdfToExcel\\PdfToExcel.vbproj",
+        "Project": "PdfToExcel",
+        "PackageReferences": null
+      },
+      {
+        "Name": "VbExplorer\\VbExplorer.Utility\\VbExplorer.Utility.vbproj",
+        "Project": "VbExplorer.Utility",
+        "PackageReferences": null
+      },
+      {
+        "Name": "VbExplorer\\Starb.Utility\\Starb.Utility.vbproj",
+        "Project": "Starb.Utility",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImportaAIE\\ImportaAIE.vbproj",
+        "Project": "ImportaAIE",
+        "PackageReferences": null
+      },
+      {
+        "Name": "DownloadAndInstallCertificates\\DownloadAndInstallCertificates\\DownloadAndInstallCertificates.vbproj",
+        "Project": "DownloadAndInstallCertificates",
+        "PackageReferences": null
+      },
+      {
+        "Name": "VbExplorer\\AmazonLibrary\\AmazonLibrary.vbproj",
+        "Project": "AmazonLibrary",
+        "PackageReferences": null
+      },
+      {
+        "Name": "VbExplorer\\FastbookLibrary\\FastbookLibrary.vbproj",
+        "Project": "FastbookLibrary",
+        "PackageReferences": null
+      },
+      {
+        "Name": "VbExplorer\\VbExplorer\\VbExplorer.vbproj",
+        "Project": "VbExplorer",
         "PackageReferences": null
       }
     ]
@@ -26412,6 +26517,459 @@
       {
         "Name": "Net4x.AdoNet.Mock",
         "Project": "MockAdoNet\\MockAdoNet.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "D:\\CommonLibrary\\bc-csharp\\BouncyCastle.sln",
+      "Version": "BouncyCastleVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.BouncyCastle.Cryptography",
+        "Project": "crypto\\src\\BouncyCastle.Crypto.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "D:\\CommonLibrary\\DnsServer\\dnsServer.sln",
+      "Version": "dnsServerVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.DnsServer.Library",
+        "Project": "DnsServer.Library\\DnsServer.Library.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "D:\\CommonLibrary\\iTextSharpPdfa\\iTextSharpPdfa.sln",
+      "Version": "iTextSharpPdfaVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.iTextSharp.Pdfa",
+        "Project": "iTextSharpPdfa\\iTextSharp.Pdfa.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "D:\\CommonLibrary\\NugetOptimizer\\NugetOptimizer.sln",
+      "Version": "NugetOptimizerVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.NugetOptimizer.Library",
+        "Project": "NugetOptimizer.Library\\NugetOptimizer.Library.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "D:\\CommonLibrary\\NuGetUtility\\BuildAllPackages.sln",
+      "Version": "BuildAllPackagesVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.Solutions.Library",
+        "Project": "SolutionsLibrary\\Solutions.Library.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.$(MSBuildProjectName)",
+        "Project": "SolutionsLibrary\\Solutions.Library.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "D:\\CommonLibrary\\WiaScannerLibrary\\WiaScanner\\WiaScannerLibrary.sln",
+      "Version": "WiaScannerLibraryVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.WiaScanner.Library",
+        "Project": "WiaScanner.Library.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.WiaScanner.Interfaces",
+        "Project": "..\\WiaScanner.Interfaces\\WiaScanner.Interfaces.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "D:\\Cartabianca\\ImmatricolazioniWS\\ImmatricolazioniWS_Libraries.sln",
+      "Version": "ImmatricolazioniWS_LibrariesVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "ImmatricolazioniLibrary.Services.AcquisizioneCOC",
+        "Project": "ImmatricolazioniLibrary.Services.AcquisizioneCOC\\ImmatricolazioniLibrary.Services.AcquisizioneCOC.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.AcquisizioneCOCCompletato",
+        "Project": "ImmatricolazioniLibrary.Services.AcquisizioneCOCCompletato\\ImmatricolazioniLibrary.Services.AcquisizioneCOCCompletato.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.AcquisizioneCOCIncompleto",
+        "Project": "ImmatricolazioniLibrary.Services.AcquisizioneCOCIncompleto\\ImmatricolazioniLibrary.Services.AcquisizioneCOCIncompleto.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.AcquisizioneInterpolazione",
+        "Project": "ImmatricolazioniLibrary.Services.AcquisizioneInterpolazione\\ImmatricolazioniLibrary.Services.AcquisizioneInterpolazione.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.AcquisizioneSchedaControlloFamiglia",
+        "Project": "ImmatricolazioniLibrary.Services.AcquisizioneSchedaControlloFamiglia\\ImmatricolazioniLibrary.Services.AcquisizioneSchedaControlloFamiglia.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.AcquisizioneSchedaControlloVariante",
+        "Project": "ImmatricolazioniLibrary.Services.AcquisizioneSchedaControlloVariante\\ImmatricolazioniLibrary.Services.AcquisizioneSchedaControlloVariante.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.AnnullamentoRegistroInvioVeicoli",
+        "Project": "ImmatricolazioniLibrary.Services.AnnullamentoRegistroInvioVeicoli\\ImmatricolazioniLibrary.Services.AnnullamentoRegistroInvioVeicoli.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.CancellazioneCOC",
+        "Project": "ImmatricolazioniLibrary.Services.CancellazioneCOC\\ImmatricolazioniLibrary.Services.CancellazioneCOC.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.CancellazioneCOCCompletato",
+        "Project": "ImmatricolazioniLibrary.Services.CancellazioneCOCCompletato\\ImmatricolazioniLibrary.Services.CancellazioneCOCCompletato.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.CancellazioneSchedaControlloFamiglia",
+        "Project": "ImmatricolazioniLibrary.Services.CancellazioneSchedaControlloFamiglia\\ImmatricolazioniLibrary.Services.CancellazioneSchedaControlloFamiglia.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.CancellazioneSchedaControlloVariante",
+        "Project": "ImmatricolazioniLibrary.Services.CancellazioneSchedaControlloVariante\\ImmatricolazioniLibrary.Services.CancellazioneSchedaControlloVariante.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.EsistenzaOmologazione",
+        "Project": "ImmatricolazioniLibrary.Services.EsistenzaOmologazione\\ImmatricolazioniLibrary.Services.EsistenzaOmologazione.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.FlussoRegistroInvioVeicoli",
+        "Project": "ImmatricolazioniLibrary.Services.FlussoRegistroInvioVeicoli\\ImmatricolazioniLibrary.Services.FlussoRegistroInvioVeicoli.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.InserimentoRegistroInvioVeicoli",
+        "Project": "ImmatricolazioniLibrary.Services.InserimentoRegistroInvioVeicoli\\ImmatricolazioniLibrary.Services.InserimentoRegistroInvioVeicoli.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.RettificaAcquisizioneCOC",
+        "Project": "ImmatricolazioniLibrary.Services.RettificaAcquisizioneCOC\\ImmatricolazioniLibrary.Services.RettificaAcquisizioneCOC.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.RettificaAcquisizioneCOCCompletato",
+        "Project": "ImmatricolazioniLibrary.Services.RettificaAcquisizioneCOCCompletato\\ImmatricolazioniLibrary.Services.RettificaAcquisizioneCOCCompletato.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.VerificaEsistenzaCOC",
+        "Project": "ImmatricolazioniLibrary.Services.VerificaEsistenzaCOC\\ImmatricolazioniLibrary.Services.VerificaEsistenzaCOC.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.VisualizzaOmologazione",
+        "Project": "ImmatricolazioniLibrary.Services.VisualizzaOmologazione\\ImmatricolazioniLibrary.Services.VisualizzaOmologazione.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.VisualizzazioneCOC",
+        "Project": "ImmatricolazioniLibrary.Services.VisualizzazioneCOC\\ImmatricolazioniLibrary.Services.VisualizzazioneCOC.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.VisualizzazioneCOCCompletato",
+        "Project": "ImmatricolazioniLibrary.Services.VisualizzazioneCOCCompletato\\ImmatricolazioniLibrary.Services.VisualizzazioneCOCCompletato.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.VisualizzazioneCOCIncompleto",
+        "Project": "ImmatricolazioniLibrary.Services.VisualizzazioneCOCIncompleto\\ImmatricolazioniLibrary.Services.VisualizzazioneCOCIncompleto.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.VisualizzazioneCUC",
+        "Project": "ImmatricolazioniLibrary.Services.VisualizzazioneCUC\\ImmatricolazioniLibrary.Services.VisualizzazioneCUC.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.VisualizzazioneRegistroInvioVeicoli",
+        "Project": "ImmatricolazioniLibrary.Services.VisualizzazioneRegistroInvioVeicoli\\ImmatricolazioniLibrary.Services.VisualizzazioneRegistroInvioVeicoli.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.VisualizzazioneSchedaControlloFamiglia",
+        "Project": "ImmatricolazioniLibrary.Services.VisualizzazioneSchedaControlloFamiglia\\ImmatricolazioniLibrary.Services.VisualizzazioneSchedaControlloFamiglia.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary.Services.VisualizzazioneSchedaControlloVariante",
+        "Project": "ImmatricolazioniLibrary.Services.VisualizzazioneSchedaControlloVariante\\ImmatricolazioniLibrary.Services.VisualizzazioneSchedaControlloVariante.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "ImmatricolazioniLibrary",
+        "Project": "ImmatricolazioniLibrary\\ImmatricolazioniLibrary.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.PdfRepresentation",
+        "Project": "PdfRepresentation\\PdfRepresentation.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\Sensors.sln",
+      "Version": "SensorsVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.Microsoft-WindowsAPICodePack-Sensors",
+        "Project": "D:\\CommonLibrary\\Windows-API-Code-Pack-1.1\\source\\WindowsAPICodePack\\Sensors\\Sensors.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\WindowsAPICodePack.sln",
+      "Version": "WindowsAPICodePackVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.Microsoft-WindowsAPICodePack-Shell",
+        "Project": "D:\\CommonLibrary\\Windows-API-Code-Pack-1.1\\source\\WindowsAPICodePack\\Shell\\Shell.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.Microsoft-WindowsAPICodePack-Core",
+        "Project": "D:\\CommonLibrary\\Windows-API-Code-Pack-1.1\\source\\WindowsAPICodePack\\Core\\Core.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.Microsoft-WindowsAPICodePack-Sensors",
+        "Project": "D:\\CommonLibrary\\Windows-API-Code-Pack-1.1\\source\\WindowsAPICodePack\\Sensors\\Sensors.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.Microsoft-WindowsAPICodePack-ExtendedLinguisticServices",
+        "Project": "D:\\CommonLibrary\\Windows-API-Code-Pack-1.1\\source\\WindowsAPICodePack\\ExtendedLinguisticServices\\ExtendedLinguisticServices.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.Microsoft-WindowsAPICodePack-ShellExtensions",
+        "Project": "D:\\CommonLibrary\\Windows-API-Code-Pack-1.1\\source\\WindowsAPICodePack\\ShellExtensions\\ShellExtensions.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\MSBuild.Community.Tasks.sln",
+      "Version": "MSBuildCommunityTasksVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.MSBuild.Community.Tasks",
+        "Project": "D:\\CommonLibrary\\MSBuild.Community.Tasks\\Source\\MSBuild.Community.Tasks\\MSBuild.Community.Tasks.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\serilog-sinks-console.sln",
+      "Version": "serilogsinksconsoleVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.Serilog.Sinks.Console",
+        "Project": "D:\\CommonLibrary\\serilog-sinks-console\\src\\Serilog.Sinks.Console\\Serilog.Sinks.Console.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\serilog-sinks-console-all.sln",
+      "Version": "serilogsinksconsoleallVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.Serilog.Sinks.Console",
+        "Project": "D:\\CommonLibrary\\serilog-sinks-console\\src\\Serilog.Sinks.Console\\Serilog.Sinks.Console.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\Net4x.SqlServer.Types.sln",
+      "Version": "Net4xSqlServerTypesVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.SqlServer.Types",
+        "Project": "D:\\CommonLibrary\\Microsoft.SqlServer.Types\\src\\Microsoft.SqlServer.Types\\Net4x.SqlServer.Types.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\Net4X.Runtime.Caching.sln",
+      "Version": "Net4XRuntimeCachingVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.Runtime.Caching",
+        "Project": "D:\\CommonLibrary\\Net4X.System.Runtime.Caching\\Net4X.System.Runtime.Caching\\Net4x.Runtime.Caching.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\CommandBindingLibrary.sln",
+      "Version": "CommandBindingLibraryVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.CommandBindingLibrary",
+        "Project": "D:\\CommonLibrary\\CommandsBindingLibrary\\CommandBindingLibrary\\CommandBindingLibrary.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\serilog-extensions-logging.sln",
+      "Version": "serilogextensionsloggingVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.Serilog.Extensions.Logging",
+        "Project": "D:\\CommonLibrary\\serilog-extensions-logging\\src\\Serilog.Extensions.Logging\\Serilog.Extensions.Logging.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\ViewCodeDom.sln",
+      "Version": "ViewCodeDomVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.ViewCodeDom",
+        "Project": "D:\\CommonLibrary\\ViewCodeDom\\ViewCodeDom\\ViewCodeDom.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\CodeDomExt.sln",
+      "Version": "CodeDomExtVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.CodeDomExt",
+        "Project": "D:\\CommonLibrary\\CodeDomExt\\CodeDomExt\\CodeDomExt.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.CodeDomExt.Helpers",
+        "Project": "D:\\CommonLibrary\\CodeDomExt\\CodeDomExt.Helpers\\CodeDomExt.Helpers.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\CertificateLibrary.sln",
+      "Version": "CertificateLibraryVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.CertificateLibrary",
+        "Project": "D:\\CommonLibrary\\CertificateLibrary\\CertificateLibrary\\CertificateLibrary.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\Net4x.Runtime.CompilerServices.Unsafe.sln",
+      "Version": "Net4xRuntimeCompilerServicesUnsafeVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.Runtime.CompilerServices.Unsafe",
+        "Project": "D:\\CommonLibrary\\PinnedLibrary\\Net4x.Runtime.CompilerServices.Unsafe\\Net4x.Runtime.CompilerServices.Unsafe.csproj",
+        "PackageReferences": null
+      }
+    ]
+  },
+  {
+    "Solution": {
+      "Path": "C:\\Users\\Piero\\AppData\\Local\\Temp\\AppDomainAlternative.sln",
+      "Version": "AppDomainAlternativeVersion"
+    },
+    "NuGetPackages": [
+      {
+        "Name": "Net4x.AppDomainAlternative",
+        "Project": "D:\\CommonLibrary\\AppDomainAlternative\\src\\AppDomainAlternative\\AppDomainAlternative.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.HostApp",
+        "Project": "D:\\CommonLibrary\\AppDomainAlternative\\src\\HostApp\\HostApp.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.ClientApp",
+        "Project": "D:\\CommonLibrary\\AppDomainAlternative\\src\\ClientApp\\ClientApp.csproj",
+        "PackageReferences": null
+      },
+      {
+        "Name": "Net4x.Common",
+        "Project": "D:\\CommonLibrary\\AppDomainAlternative\\src\\Common\\Common.csproj",
         "PackageReferences": null
       }
     ]

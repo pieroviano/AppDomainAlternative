@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-    <Import Condition="Exists('$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.props')" Project="$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.props" />
+    <Import Condition="Exists('$(NuGetPackageRoot)net4x.nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.props')" Project="$(NuGetPackageRoot)net4x.nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.props" />
     <PropertyGroup>
         <PackageOutputPath>$(SolutionDir)Packages/</PackageOutputPath>
         <Version>$(VersionPrefix).$(VersionSuffix)</Version>
@@ -50,8 +50,8 @@
         <Content Remove="$(SolutionDir)\VsDebugger\bin\Release\VsDebugger.pdb" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="NuGetUtility" PrivateAssets="All" Version="$(NuGetUtilityVersion)" />
+        <PackageReference Include="Net4x.NuGetUtility" PrivateAssets="All" Version="$(NuGetUtilityVersion)" />
         <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
     </ItemGroup>
-    <Import Condition="Exists('$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.targets')" Project="$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.targets" />
+    <Import Condition="Exists('$(NuGetPackageRoot)net4x.nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.targets')" Project="$(NuGetPackageRoot)net4x.nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.targets" />
 </Project>

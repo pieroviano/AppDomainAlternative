@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-    <Import Condition="Exists('$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.props')" Project="$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.props" />
+    <Import Condition="Exists('$(NuGetPackageRoot)net4x.nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.props')" Project="$(NuGetPackageRoot)net4x.nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.props" />
     <PropertyGroup>
         <PackageOutputPath>$(SolutionDir)Packages/</PackageOutputPath>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -14,7 +14,7 @@
         <ProjectReference Include="..\AppDomainAlternative\AppDomainAlternative.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="NuGetUtility" PrivateAssets="All" Version="$(NuGetUtilityVersion)" />
+        <PackageReference Include="Net4x.NuGetUtility" PrivateAssets="All" Version="$(NuGetUtilityVersion)" />
     </ItemGroup>
-    <Import Condition="Exists('$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.targets')" Project="$(NuGetPackageRoot)nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.targets" />
+    <Import Condition="Exists('$(NuGetPackageRoot)net4x.nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.targets')" Project="$(NuGetPackageRoot)net4x.nugetutility/$(NuGetUtilityVersion)/build/NuGet.Utility.targets" />
 </Project>
